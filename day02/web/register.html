@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>注册</title>
+		<style type="text/css">
+			body {
+				background: url("img/regist_bg.jpg");
+				padding-top: 25px;
+				font-family: "microsoft yahei";
+				font-size: 11pt;
+			}
+
+			.rg_layout {
+				width: 900px;
+				height: 550px;
+				border: 8px solid #CCCCCC;
+				background-color: white;
+				/*让div水平居中*/
+				margin: auto;
+				padding-top: 40px;
+				box-sizing: border-box;
+			}
+
+			.rg_top {
+				/* border: 1px solid red; */
+				width: 60%;
+				margin: auto;
+			}
+
+			.rg_top span:first-child {
+				color: #3D64AA;
+				font-size: 20px;
+				margin-right: 10px;
+			}
+
+			.rg_form {
+				padding-top: 10px;
+				/* border: 1px solid red; */
+				width: 70%;
+				margin: auto;
+			}
+
+			.td_left {
+				width: 100px;
+				text-align: right;
+				height: 45px;
+			}
+
+			.td_right {
+				padding-left: 50px;
+			}
+
+			#username,#password,#email,#name,#repassword,#birthday,#checkcode {
+				width: 251px;
+				height: 32px;
+				border: 1px solid #A6A6A6;
+				/*设置边框圆角*/
+				border-radius: 5px;
+				padding-left: 10px;
+			}
+
+			#checkcode {
+				width: 110px;
+			}
+
+			#img_check {
+				height: 32px;
+				/* 垂直方向居中 */
+				vertical-align: middle;
+				margin-left: 20px;
+			}
+
+			#btn_sub {
+				width: 105px;
+				height: 36px;
+				background-color: #BE2934;
+				border: 1px solid #BE2934;
+				color: white;
+			}
+		</style>
+
+
+	</head>
+	<body>
+		<div class="rg_layout">
+			<div class="rg_top">
+				<span>会员注册 </span> <span>USER REGISTER</span>
+			</div>
+
+			<div class="rg_form">
+				<!--定义表单 form-->
+				<form action="/day02_war_exploded/Register1Servlet" method="post" onsubmit="return checkUsername();">
+					<table>
+						<tr>
+							<td class="td_left"><label for="username">用户名</label></td>
+							<td class="td_right">
+								<!-- this 当前对象,现在当前对象就是这个input -->
+								<input onblur="checkUsernameParse(this)" type="text" name="username" id="username" placeholder="请输入用户名">
+								<span id="usernameMsg" style="display: none">用户名不能为空</span>
+							</td>
+
+						</tr>
+
+						<tr>
+							<td class="td_left"><label for="password">密码</label></td>
+							<td class="td_right"><input type="password" name="password" id="password" placeholder="请输入密码"></td>
+						</tr>
+						<tr>
+							<td class="td_left"><label for="repassword">确认密码</label></td>
+							<td class="td_right"><input type="text" id="repassword" placeholder="请输入确认密码"></td>
+						</tr>
+						<tr>
+							<td class="td_left"><label for="email">Email</label></td>
+							<td class="td_right"><input type="email" name="email" id="email" placeholder="请输入邮箱"></td>
+						</tr>
+
+						<tr>
+							<td class="td_left"><label for="name">姓名</label></td>
+							<td class="td_right"><input type="text" name="name" id="name" placeholder="请输入姓名"></td>
+						</tr>
+
+						<tr>
+							<td class="td_left"><label>性别</label></td>
+							<td class="td_right">
+								<input type="radio" name="gender" value="male"> 男
+								<input type="radio" name="gender" value="female"> 女
+							</td>
+						</tr>
+
+						<tr>
+							<td class="td_left"><label for="birthday">出生日期</label></td>
+							<td class="td_right"><input type="date" name="birthday" id="birthday" placeholder="请输入出生日期"></td>
+						</tr>
+
+						<tr>
+							<td class="td_left"><label for="checkcode">验证码</label></td>
+							<td class="td_right"><input type="text" name="checkcode" id="checkcode" placeholder="请输入验证码">
+								<img id="img_check" src="img/yanzhengma.png">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center"><input type="submit" id="btn_sub" value="注册"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</body>
+	<script>
+		// 1.确定事件  onsubmit 失去焦点
+		// 2.点击 提交按钮 判断用户名是否为空, 如果为空不能提交
+		//   如果不为空, 再判断用户名格式是否符合规范
+		// 3.失去焦点时, 如果用户名不为空, 判断用户名是否符合格式规范
+		var usernameSpan = document.getElementById("usernameMsg");
+		function checkUsername() {
+			// a.获得用户名对应的输入框
+			var usernameInput = document.getElementById("username");
+			// b.获得用户名输入框的值
+			var username = usernameInput.value;
+			console.log(username); // ("") null undefined
+			if (username != null && username.trim() != "") {
+				// 再判断格式问题
+				var flag = checkUsernameParse(usernameInput);
+				usernameSpan.style.display = "none";
+				return flag;
+			} else {
+				// alert("用户名不能为空!");
+				// usernameSpan.innerText = "<font color='red'>用户名不能为空!</font>";
+				usernameSpan.innerHTML = "<font color='red'>用户名不能为空!</font>";
+				usernameSpan.style.display = "inline";
+			}
+			// JS中函数返回值
+			return false;
+		}
+		function checkUsernameParse(obj) {
+			// this 当前对象, 在这里表示script标签(window)
+			// obj的实际对象就是传进来的input对象
+			if (obj.value.trim() != "") {
+				var reg = /^[a-zA-Z]\w{5,17}$/;
+				var flag = reg.test(obj.value.trim());
+				if (flag) {
+					usernameSpan.style.display = "none";
+					return flag;
+				} else {
+					// alert("用户名必须是6~18位,只能出现...");
+					usernameSpan.innerText = "用户名必须是6~18位..";
+					usernameSpan.style.display = "inline";
+					return false;
+				}
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,134 @@
+JavaEE：Java服务器端语言
+
+B/S：Broswer Server		HTTP协议
+	例如：淘宝 京东 百度
+C/S：Client  Server 		TCP/IP
+	例如：QQ LOL 
+
+Java服务器：Web应用服务器
+  可以运行JavaEE程序的软件
+
+Tomcat安装：
+ tomcat根目录结构：
+   bin：命令，工具
+   lib：jar包
+   conf：configure 配置文件
+   backup：备份
+   logs：软件运行日志
+   temp：临时文件
+   webapps：部署web应用
+   work：web应用运行产生的一些文件（session文件，jsp文件）
+
+  运行Tomcat：
+  	windows启动：startup
+	  windows关闭：shutdown.bat
+
+	Linux启动：startup.sh
+	Linux关闭：shutdown.sh
+
+	访问：  http://localhost:8080
+		   http://127.0.0.1:8080
+		   localhost:8080
+
+部署web应用的方式
+1.直接部署：
+  a.确保服务器是关闭状态
+  b.创建文件夹(web应用)，并在文件夹中创建html文件
+  c.将文件夹复制到webapps中
+  d.启动服务器，访问web应用
+  	格式：http://ip:port/应用的虚拟目录/../web资源
+  	     http://localhost:8080/hello/hi.html
+  问题：后期如果要修改java代码，重新部署，必须重启服务器
+  卸载应用：需要关闭服务器后，删除文件夹(web应用)
+
+2.打包war包    
+  jar -> Java工程的字节码文件，可以被其他工程使用的
+  war -> web应用，字节码文件 + web资源，只能部署在服务器中
+  a.将应用文件夹打包成war格式
+  b.将war文件复制到服务器的webapps中(服务器不需要关闭)
+  c.服务器会自动将war文件解压
+  d.访问应用
+    http://localhost:8080/hello/hello/hi.html
+
+  卸载应用：不需要关闭服务器，将war文件删除即可
+  好处：不需要关闭服务器就可以安装和卸载应用
+
+3.修改server.xml文件
+  a.确保服务器关闭状态
+  b.修改server.xml文件
+    <Host> 
+      <Context path="虚拟目录" docBase="应用的绝对路径"></Context>
+    </Host>
+  c.重新启动服务器
+  d.访问： http://localhost:8080/虚拟目录/web资源路径
+
+  问题：需要重新启动服务器
+  卸载应用：将Context标签删除，然后重启服务器
+
+  3.1不修改server.xml文件   - 最常用的部署方式，IDEA
+    a.自定义一个xml文件，文件名：xx.xml
+      内容：
+        <Context docBase="应用的绝对路径"></Context>
+    b.将xx.xml保存在  conf/Catalina/localhost/xx.xml
+    c.访问：
+        http://localhost:8080/xx/web资源路径
+    卸载应用：xx.xml删除即可
+
+IDEA整合Tomcat的时候，
+
+重新生成了一份独立的tomcat配置文件
+CATALINA_BASE:  /Users/bonnie/Library/Caches/JetBrains/IntelliJIdea2020.2/tomcat/Unnamed_JavaEE
+
+HTTP协议: 请求 request + 响应 response
+request: 客户端给服务器发送
+response: 服务器返回给客户端
+
+URL: 协议://ip:port/资源路径
+URI: /资源路径
+
+数据包
+请求:
+  请求行: 请求提交方式(POST/GET)  请求URI  HTTP协议版本号
+  请求头: 大的Map, 客户端信息(客户端版本号,语言...)
+  请求体: Post请求客户端发送给服务器的用户数据  参数
+  Get请求提交的参数, 出现在请求行中的URI后面 uri?参数=参数值
+
+响应:
+  响应行: HTTP协议版本号  状态码
+  响应头: 大Map  服务器的数据(响应类型, 响应时间等...)
+  响应体: 响应内容
+
+常见状态码: 200 一切正常
+          304 访问缓存
+          404 资源未找到(地址写错了)
+          500 Java代码出错 - 异常
+          302 重定向
+
+Java来接收Http请求, 并且给前端发送Http响应
+JavaEE中的Servlet 和 JSP规范
+Servlet: init destroy service
+   生命周期:
+     init: 初始化Servlet的时候调用,
+           Servlet对象在创建完后马上初始化
+           Servlet对象什么时候创建? 默认第一次接收请求时创建
+           可以通过 <load-on-startup>5</load-on-startup> 来设置服务器启动时创建对象
+     destroy: 销毁Servlet之前调用
+           Servlet对象什么时候销毁? 服务器关闭时销毁
+     service: 每一次接收请求时调用
+
+HttpServlet extends GenericServlet 是 Servlet 的实现类
+  为什么可以用doGet 和 doPost来取代service方法
+  HttpServlet 实现了service方法
+    1.将request和response类型做了转换
+    2.调用 this.service(转换后的request和response)
+    3.自定义的service中,判断了请求方式,调用对应的doXX方法
+
+配置文件: web.xml 一部分配置可以使用注解来取代(3.0版本以上)
+注解: @WebServlet("/AnnotationServlet")
+@WebServlet(value="/AnnotationServlet", loadOnStartup=5)
+
+
+设计模式: 23种
+单例模式: 程序运行期间, 某一个类只有一个对象
+         线程并发的安全问题
+         解决安全问题: 使用方法参数

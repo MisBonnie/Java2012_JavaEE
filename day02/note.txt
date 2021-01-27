@@ -1,0 +1,78 @@
+回顾:
+  Tomcat: Web应用服务器
+  Servlet: JavaEE规范  Http请求  Http响应
+  Http请求: 请求行 - 请求方式 URI?get请求提交的参数
+           请求头 - Map
+           请求体 - post请求提交的参数
+
+  Http响应: 响应行 - 状态码(200 404 304 302 500)
+           响应头 - Map
+           响应体 - 响应内容(html页面)
+
+  继承HttpServlet, 重写 doGet/doPost
+  Servlet生命周期: init service destroy
+  Servlet配置:
+   1.web.xml   <servlet><servlet-mapping>
+               <load-on-startup>  <url-pattern>(完全匹配 后缀匹配 目录匹配)
+   2.注解  @WebServlet(value="/path", loadOnStartup=5)
+          @WebServlet("/path")
+
+========================================================================
+1.Http请求  HttpServletRequest(接口)  extends  ServletRequest(接口)
+   1.操作请求行 (获得请求信息)
+   2.操作请求头 (user-agent referer)
+   3.请求体 (post请求提交的参数)  InputStream
+     参数的格式: user=eeee&password=123   => Map
+     参数获得: value getParameter(key) => 能确定唯一参数值
+              String[] getParameterValues(key) => 通常用于checkbox参数内容
+              Map<String, String[]> getParameterMap() => 获得所有参数的键值对
+
+     字符集区别: get请求字符集和tomcat字符集一致 utf-8 (tomcat8及之前版本, 默认字符集是ISO8859-1)
+                     修改tomcat字符集 server.xml :  URIEncoding="UTF-8"
+               post请求字符集是 ISO8859-1
+
+     课堂案例: 完成用户注册功能
+   4.请求转发: 请求
+        request.getRequestDispatcher("/Demo5Servlet").forward(request, response);
+     域对象: 用来存取数据的空间域 (一共4个)  value可以是Object
+        方法: 1.存数据  value setAttribute(key, value)
+             2.取数据  value getAttribute(key)
+             3.删除数据 value removeAttribute(key)
+     request域的范围: 一次请求(转发不管几次, 都算是一次请求)
+
+     getParameter(): 获得的是客户端提交给服务器的请求参数, 参数只能是String类型
+     getAttribute(): 获得的是另一个web资源存入到域中的数据, 数据可以是Object类型
+
+
+DAO: database access object
+     单纯的CRUD操作 - 基本单位是对象
+
+UsersDao - 增删改查
+     void addUser(User user)
+     User findUserById(int id)
+     List<User> findAllUsers()
+
+BeanUtils.populate(bean, map) -> bean封装属性
+
+2.响应 HttpServletResponse extends ServletResponse(接口)
+    设置响应信息
+    setStatus() - 设置状态码
+
+    响应体: 输出流  OutputStream  PrintWriter
+        设置响应体内容 - 告诉客户端响应类型
+        setContentType("text/html;charset=utf-8");
+
+    重定向: 302
+         两次请求, 客户端地址栏发生改变
+         重定向后的资源不能再获得 之前请求提交的参数
+         不能使用request域来传递数据
+
+    案例: 登录 -> 登录成功后跳转到首页
+
+今日重点:
+  1.请求参数
+  2.请求转发 + request域对象的使用
+  3.响应体的设置
+  4.响应的重定向
+
+  先注册 , 再登录

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单</title>
+</head>
+<body>
+<form action="/day02_war_exploded/Demo3Servlet" method="post">
+    <label for="username">用户名:</label>
+    <input type="text" id="username" name="username" value="这是默认的lucy"/> <br>
+    密码:<input type="password" name="password"  /> <br>
+    生日:<input type="date" name="birthday"/><br>
+    性别:<label for="male">男</label><input type="radio" id="male" name="sex" value="男"/>
+    女<input type="radio" name="sex" checked value="女"/><br>
+
+
+    爱好:睡觉<input type="checkbox" name="hobby" value="睡觉"/>
+    打球<input type="checkbox" name="hobby" checked value="打球"/><br>
+
+
+    <input value="提交" type="submit"/>
+</form>
+</body>
+</html>

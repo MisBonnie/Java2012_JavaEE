@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <!-- 配置/注册Servlet类,才能被服务器识别 -->
+    <servlet>
+        <servlet-name>Hello</servlet-name>
+        <!-- 自定义Servlet的全限定类名 -->
+        <servlet-class>demo.a_servlet.HelloServlet</servlet-class>
+        <!-- 设置servlet在服务器启动时创建 -->
+        <load-on-startup>5</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Hello</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <!-- 自己定义即可 -->
+        <servlet-name>Kitty</servlet-name>
+        <!-- 自定义Servlet的全限定类名 -->
+        <servlet-class>demo.a_servlet.HelloKitty</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <!-- 和servlet标签中的servlet-name一致 -->
+        <servlet-name>Kitty</servlet-name>
+        <!-- 定义的资源访问路径 -->
+        <!-- 1.路径的完全匹配 -->
+<!--        <url-pattern>/kitty</url-pattern>-->
+<!--        <url-pattern>/hi/kitty</url-pattern>-->
+        <!-- 2.后缀匹配, 一般管理系统会用到 -->
+<!--        <url-pattern>*.do</url-pattern>-->
+        <!-- 3.目录匹配 /* 所有路径都可以访问到, 框架会用到[过滤器等] -->
+        <url-pattern>/*</url-pattern>
+        <url-pattern>/user/*</url-pattern>
+    </servlet-mapping>
+</web-app>
