@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script src="/day03_war_exploded/js/jquery-1.11.0.min.js"></script>
+    <script>
+        function changeCode(obj) {
+            obj.src = "/day03_war_exploded/CheckImgServlet?random=" + Math.random();
+            // obj.src = "/day03_war_exploded/CheckImgServlet?random=" + new Date();
+        }
+    </script>
+</head>
+<body>
+    <form action="#" method="get">
+        <input type="text" name="name" /> <br>
+        <input type="text" name="checkcode" />
+        <!-- 通过这个请求, 想要得到的响应体是一张图片 -->
+        <img src="/day03_war_exploded/CheckImgServlet" onclick="changeCode(this)" />
+    </form>
+</body>
+</html>

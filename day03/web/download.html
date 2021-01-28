@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下载</title>
+</head>
+<body>
+    <!-- 传统普通超链接的方式来下载文件
+         浏览器不能解析的文件才能下载
+         浏览器可以解析的文件, 就直接显示了
+     -->
+    <a href="http://localhost:8080/day03_war_exploded/download/a.flv">a.flv</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/download/a.jpg">a.jpg</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/download/a.mp3">a.mp3</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/download/a.mp4">a.mp4</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/download/a.txt">a.txt</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/download/a.zip">a.zip</a><br>
+    <hr>
+    <!-- 要下载的文件文件是保存在服务器中的
+         下载: 将服务器的文件复制到客户端  IO流 Servlet
+         将下载请求发送给servlet, 通过参数来确定要下载的文件名
+     -->
+    <a href="http://localhost:8080/day03_war_exploded/DownloadServlet?filename=a.flv">a.flv</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/DownloadServlet?filename=a.jpg">a.jpg</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/DownloadServlet?filename=a.mp3">a.mp3</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/DownloadServlet?filename=a.mp4">a.mp4</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/DownloadServlet?filename=a.txt">a.txt</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/DownloadServlet?filename=a.zip">a.zip</a><br>
+    <a href="http://localhost:8080/day03_war_exploded/DownloadServlet?filename=美女.jpg">美女.jpg</a><br>
+
+
+</body>
+</html>

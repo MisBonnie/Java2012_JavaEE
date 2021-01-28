@@ -1,0 +1,83 @@
+回顾:
+   HttpServletRequest  请求 -> 服务器获得请求相关信息   getXX
+        getMethod()  getRequestURI()  getRequestURL()
+        getHeader(name)  getIntHeader(name)  getDateHeader(name)
+        getParameter(name)  getParameterValues(name)  getParameterMap()
+
+        get/post 字符集不同  post:ISO8859-1  get:Tomcat字符集一致
+        setCharacterEncoding("UTF-8");
+
+        BeanUtils.populate()
+
+        请求的转发: dispatcher  一次请求
+        request.getRequestDispatcher("url/uri").forward(request, response)
+        request域对象: request.setAttribute(key, value)   request.getAttribute(key)
+             域的范围: 一次请求
+   HttpServletResponse 响应 -> 服务器设置响应相关信息   setXX
+        setStatus()
+        setHeader(key, value)  addHeader(key, value)
+        getOutputStream()   getWriter()
+
+        重定向: 二次请求
+        response.sendRedirect("url")
+
+   转发: 一次请求, 客户端浏览器地址栏不改变, 可以使用request域, 不建议页面刷新
+        一件事情没有完成, 需要继续配合其他资源来完成, 可以用转发
+   重定向: 两次请求, 客户端浏览器地址栏改变, 不能使用request域, 页面刷新不影响
+        一件事情完成了, 开始做另一件事情, 可以用重定向
+
+-----------------------------------------------------------------------
+1.转发和重定向的路径
+    转发: 路径不加虚拟目录
+         服务器内部资源的操作, uri路径是服务器内部路径
+         路径: 已经确定了服务器本身应用的地址
+
+    重定向: 路径加了虚拟目录
+         客户端访问服务器资源时需要用到的路径, 客户端路径 URL
+         http://localhost:8080/day02_war_exploded/Demo7Servlet
+         当URL中的ip是本机时, 可以省略 ip:port, 只剩 /day02_war_exploded/Demo7Servlet
+
+完整url: http://localhost:8080/day02_war_exploded/Demo7Servlet
+        [协议]  [ip:port]     [虚拟目录]           [web资源]
+        [ip:port]: 服务器这台主机
+        [虚拟目录]: 服务器主机中的应用
+        [web资源]: 应用中的具体某个资源
+
+服务器路径: 转发
+客户端路径: 重定向  超链接   JS文件的引入src  css文件的引入href  图片路径src
+
+2.ServletContext -> 应用上下文 application 应用相关信息
+  整个应用, 只有一个ServletContext对象
+  生命周期: 服务器启动时创建(应用启动), 服务器关闭时销毁, 创建是由tomcat服务器来负责
+  1.可以获得应用名
+  2.可以获得全局初始化参数
+  3.获得应用中资源的绝对路径
+  4.作为域对象使用 - 统计网站访问量, 网站点击量: 客户端访问该网站的任意站点,访问量都+1
+        域的范围: 整个应用运行期间
+
+
+3.补充request相关方法
+    获得应用名  getContextPath()
+    获得ServletContext对象  getServletContext()
+
+    ServletConfig -> init方法参数中
+        1.可以获得Servlet名
+        2.可以获得servlet的初始化参数
+
+4.response相关的课堂案例
+4.1 文件下载
+4.2 验证码
+
+任务:
+  1.两个课堂案例
+  2.用户管理系统的表创建出来
+        用户信息表 UserInfo -> 字段见页面
+        用户表    User -> id username password
+  3.预习 自学 JSP  EL  JSTL
+  4.Cookie  Session
+
+
+
+
+
+
