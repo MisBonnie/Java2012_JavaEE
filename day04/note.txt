@@ -1,0 +1,106 @@
+回顾:
+  ServletContext
+    1.可以获得应用名
+    2.获得全局初始化参数
+    3.可以获得应用中文件的绝对路径
+    4.域对象
+    服务器开启创建, 服务器关闭销毁: 服务器运行期间, 只有一个ServletContext对象
+
+    小范围引用 可以 维护(获得) 大范围引用
+    request -> ServletContext
+    servlet -> ServletContext
+
+  路径: 客户端路径: form a css js img... 重定向
+            添加虚拟目录: request.getContextPath()
+       服务器端路径: 转发使用
+
+  验证码原理: response回来一张图片
+  文件下载: 文件复制response设置客户端响应类型setContentType 和文件打开方式setHeader()
+
+  request: 是什么, 有什么, 如何接收请求, 怎么使用
+  response: 是什么, 有什么, 如何发送响应
+
+
+--------------------------------------------------------------
+JSP: Java Server Page
+     HTML 文件中 可以直接嵌入 Java代码
+     修改JSP文件可以不需要重启服务器
+
+原理: xx.jsp -> 翻译成xx.java文件 -> 编译成xx.class -> 运行
+翻译成Java文件:
+  1.存储位置: work文件夹中
+  2.翻译时间: 第一次访问文件
+  3.修改了jsp: 自动刷新java文件内容, 并重新编译
+  4.Java文件的类 extends HttpJspBase => HttpServlet
+  5.各种元素翻译对应的内容:
+     html元素 -> out.write(html)
+     <% %> -> service方法中的java代码
+     <%= %> -> service方法中的out.print(表达式)
+     <%! %> -> 类中的成员
+
+     <!-- html注释 -->: JSP源码, 翻译后的Java文件, 最终运行出来的HTML文件
+     // Java注释: JSP源码, 翻译后的Java文件
+     <%-- jsp注释 --%>: JSP源码
+
+JSP内置对象: 9个  可以在普通的Java脚本中直接使用的对象
+    HttpServletRequest request
+    HttpServletResponse response
+    PageContext pageContext  页面上下文
+    HttpSession session
+    ServletContext application;
+    ServletConfig config;
+    JspWriter out   作用: 输出内容, 和 response.getWriter 功能差不多, 缓冲输出流
+    Object page = this;  Servlet
+    Exception exception: 设置 isErrorPage = true
+
+    参数: request  response
+    域: application  session  request  pageContext
+    输出: out
+    配置: config
+    异常: exception
+    自己: page
+pageContext:
+    1.可以获得其他8个内置对象
+    2.作为域对象使用, 域的范围: 当前页面, 作用: 传递数据, page域
+    3.可以操作其他域对象
+
+域的范围总结:
+   page域: 当前页面
+   request域: 一次请求, 转发也算一次请求
+   application域: 应用运行期间 (所有客户端共享)
+
+
+JSP指令: <%@ 指令 %>
+    page指令: 页面相关的一些配置
+        contentType: 等同于response.setContentType()
+        language: java - html文件中可以嵌入java代码
+        pageEncoding: 等同于contentType + meta
+        session: 默认true, 要不要开启session对象
+        isELIgnored: 默认true, 要不要忽略EL表达式
+        isErrorPage: 默认false, 是不是错误页面
+        errorPage: 当前页面出现异常后跳转到的错误页面, 等同于转发
+        import: 导包
+        buffer: 默认8kb, out缓冲区的大小
+    include: 页面静态包含
+        file: 要包含的页面
+    taglib: 引入自定义标签, 类似于java中的import
+        (标签的本质也是java代码, 所以需要先导入jar包, 引入进来的效果是新增了很多的标签类型)
+        prefix: 前缀 c <c:标签名>   <img>
+        uri: 导入的jar包地址
+        标签的目的: 为了在jsp中减少java代码的书写
+
+JSP标签:
+  JSP动态标签: 直接使用
+    jsp:forward page
+    jsp:include page
+
+    静态包含和动态包含的区别: jsp翻译后的java文件中查看区别
+
+EL表达式: Expression Language  目的:减少Java代码的书写, 取代各种get方法
+    ${表达式内容 }
+    ${empty user}  判断user是否为空
+
+JSTL标签: 需要先导入jar包
+    配合EL表达式来使用
+
+
