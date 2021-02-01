@@ -37,8 +37,30 @@
 <body>
 <div class="container">
     <h3 style="text-align: center">用户信息列表</h3>
+    <div style="float: left;">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2">姓名</label>
+            <input type="text" class="form-control" id="exampleInputName2">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputAddress2">籍贯</label>
+            <input type="text" class="form-control" id="exampleInputAddress2" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2">邮箱</label>
+            <input type="email" class="form-control" id="exampleInputEmail2">
+        </div>
+        <button type="submit" class="btn btn-default">查询</button>
+    </form>
+    </div>
+    <div style="float: right; margin-bottom: 10px">
+        <a class="btn btn-primary" href="add.html">添加联系人</a>
+        <a class="btn btn-primary" href="add.html">删除选中</a>
+    </div>
     <table border="1" class="table table-bordered table-hover">
         <tr class="success">
+            <th><input type="checkbox"/> </th>
             <th>编号</th>
             <th>姓名</th>
             <th>性别</th>
@@ -48,8 +70,9 @@
             <th>邮箱</th>
             <th>操作</th>
         </tr>
-        <c:forEach items="${list}" var="userInfo" varStatus="s">
+        <c:forEach items="${pageBean.list}" var="userInfo" varStatus="s">
         <tr>
+            <td><input type="checkbox"/> </td>
             <td>${s.count}</td>
             <td>${userInfo.name}</td>
             <td>${userInfo.gender}</td>
@@ -57,14 +80,39 @@
             <td>${userInfo.address}</td>
             <td>${userInfo.qq}</td>
             <td>${userInfo.email}</td>
-            <td><a class="btn btn-default btn-sm" href="update.html">修改</a>&nbsp;
+            <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/FindUserInfoByIdServlet?id=${userInfo.id}">修改</a>&nbsp;
                 <a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/DeleteUserInfoServlet?id=${userInfo.id}">删除</a></td>
         </tr>
         </c:forEach>
-        <tr>
-            <td colspan="8" align="center"><a class="btn btn-primary" href="add.html">添加联系人</a></td>
-        </tr>
     </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li>
+                <a href="${pageContext.request.contextPath}/FindPageUserInfoServlet?currentPage=${pageBean.currentPage-1}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <c:forEach begin="1" end="${pageBean.totalPage}" var="i">
+                <c:if test="${pageBean.currentPage == i}">
+                    <li class="active"><a href="#">${i} <span class="sr-only">(current)</span></a></li>
+                </c:if>
+                <c:if test="${pageBean.currentPage != i}">
+                    <li><a href="${pageContext.request.contextPath}/FindPageUserInfoServlet?currentPage=${i}">${i}</a></li>
+                </c:if>
+
+            </c:forEach>
+
+            <li>
+                <a href="${pageContext.request.contextPath}/FindPageUserInfoServlet?currentPage=${pageBean.currentPage+1}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <span style="font-size: 20pt; margin-left: 5px;">共${pageBean.totalCount}条数据, 共${pageBean.totalPage}页</span>
+        </ul>
+
+    </nav>
+
+
 </div>
 </body>
 </html>

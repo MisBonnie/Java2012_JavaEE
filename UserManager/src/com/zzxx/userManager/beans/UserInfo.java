@@ -68,4 +68,16 @@ public class UserInfo {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", address='" + address + '\'' +
+                ", qq='" + qq + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
