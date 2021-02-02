@@ -1,7 +1,7 @@
 package b_register;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import mailutils.DruidUtils;
+import utils.DruidUtils;
 
 public class UsersDao {
     public void addUser(User user) {

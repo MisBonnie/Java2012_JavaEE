@@ -2,7 +2,7 @@ package d_login;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import mailutils.DruidUtils;
+import utils.DruidUtils;
 
 import java.util.List;
 
