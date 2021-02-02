@@ -2,7 +2,7 @@ package b_list;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import utils.DruidUtils;
+import mailutils.DruidUtils;
 
 import java.util.List;
 

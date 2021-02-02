@@ -1,8 +1,5 @@
 package b_register;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import utils.DruidUtils;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

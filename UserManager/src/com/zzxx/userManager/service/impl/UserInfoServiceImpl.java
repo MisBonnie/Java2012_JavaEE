@@ -7,6 +7,7 @@ import com.zzxx.userManager.dao.impl.UserInfoDaoImpl;
 import com.zzxx.userManager.service.UserInfoService;
 
 import java.util.List;
+import java.util.Map;
 
 public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoDao userInfoDao = new UserInfoDaoImpl();
@@ -24,14 +25,14 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public PageBean<UserInfo> findPageBean(int currentPage, int pageSize) {
+    public PageBean<UserInfo> findPageBean(int currentPage, int pageSize, Map<String, String[]> condition) {
         PageBean<UserInfo> pb = new PageBean<>();
         pb.setCurrentPage(currentPage);
         pb.setPageSize(pageSize);
         // 查询数据库获得List
-        List<UserInfo> list = userInfoDao.findUserInfoByPage(currentPage, pageSize);
+        List<UserInfo> list = userInfoDao.findUserInfoByPage(currentPage, pageSize, condition);
         // 查询数据库获得totalCount
-        int totalCount = userInfoDao.findCount();
+        int totalCount = userInfoDao.findCount(condition);
         // 计算totalPage
 //        int totalPage = totalCount % pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
         int totalPage = (totalCount + pageSize - 1) / pageSize;

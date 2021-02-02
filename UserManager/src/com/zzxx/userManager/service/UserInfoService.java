@@ -4,6 +4,7 @@ import com.zzxx.userManager.beans.PageBean;
 import com.zzxx.userManager.beans.UserInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserInfoService {
     /**
@@ -27,6 +28,7 @@ public interface UserInfoService {
      * @return
      * @param currentPage
      * @param pageSize
+     * @param condition
      */
-    PageBean<UserInfo> findPageBean(int currentPage, int pageSize);
+    PageBean<UserInfo> findPageBean(int currentPage, int pageSize, Map<String, String[]> condition);
 }

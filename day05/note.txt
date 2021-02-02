@@ -99,7 +99,7 @@ Session: 存储在服务器端
     service: service层, 业务, 面向接口
     dao: dao层 - jdbc处理
     beans: domain/pojo/entity  实体类
-    utils: 工具类
+    mailutils: 工具类
     test: 测试类
 
 jar: 数据库驱动包: mysql - connector

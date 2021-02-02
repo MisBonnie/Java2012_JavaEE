@@ -1,5 +1,13 @@
 package com.zzxx.userManager.beans;
 
+/**
+ * JavaBean规范:
+ *   1.属性私有化,提供get/set方法
+ *   2.提供无参构造器
+ *   3.可以重写equals/hashCode方法
+ *   4.尽量使用包装类型  Integer 比 int 多一个null值
+ *   5.实现序列化接口
+ */
 public class UserInfo {
     private int id;
     private String name;

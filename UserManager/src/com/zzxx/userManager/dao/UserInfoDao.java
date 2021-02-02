@@ -3,6 +3,7 @@ package com.zzxx.userManager.dao;
 import com.zzxx.userManager.beans.UserInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserInfoDao {
     /**
@@ -27,13 +28,15 @@ public interface UserInfoDao {
      * 分页查询用户列表
      * @param currentPage
      * @param pageSize
+     * @param condition
      * @return
      */
-    List<UserInfo> findUserInfoByPage(int currentPage, int pageSize);
+    List<UserInfo> findUserInfoByPage(int currentPage, int pageSize, Map<String, String[]> condition);
 
     /**
      * 查询总记录条数
      * @return
+     * @param condition
      */
-    int findCount();
+    int findCount(Map<String, String[]> condition);
 }

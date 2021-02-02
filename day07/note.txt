@@ -1,0 +1,52 @@
+Servlet规范:
+  三个核心组件: Servlet  Filter(过滤器)  Listener(监听器)
+
+Listener(监听器): 6+2
+  监听器作用: 监听到一个动作的发生, 从而触发对应代码
+
+  1.监听 ServletContext/HttpSession/ServletRequest 对象的创建和销毁
+  2.监听 ServletContext/HttpSession/ServletRequest 域内容的改变
+
+  生命周期:
+  ServletContext: 服务器启动时创建, 服务器关闭销毁
+        ServletContextListener作用: 服务器启动时的初始化工作
+           例如: 周期性任务调度 -> 银行计息, 生日祝福
+                加载配置文件 -> Spring
+        ServletContextAttributeListener: 监听application域内容的改变
+  HttpSession: 第一次调用request.getSession()时创建, 手动销毁/超时销毁/服务器非正常关闭销毁
+  ServletRequest: 接收到请求时创建, 请求结束销毁
+
+  域内容改变:
+  setAttribute(name, value) --> 改变
+  getAttribute(name)
+  removeAttribute(name) --> 改变
+
+------------------------------------
+对象感知监听器 2个 -- 了解
+    跟session域相关的对象
+
+1.对象添加到session中, 对象从session中移除
+2.session钝化 和 活化
+
+服务器正常关闭时, session会销毁吗? (必须使用外部独立tomcat测试)
+  解: 服务器关闭, 内存被释放, session是属于内存对象(在内存中释放了), 从内存中保存在了硬盘中(持久化了 -> 文件)
+  服务器关闭: session从内存保存在文件中: tomcat/work/../应用目录/sessions.ser文件
+    这个过程称之为session的钝化
+  服务器开启: session从文件中 恢复到内存中
+    这个过程称之为session的活化
+
+  User对象和String: 对象从内存中保存在文件中, 需要 序列化
+
+  session默认生命周期: 30超时自动销毁(为了减轻服务器压力), 但是销毁后数据没法保存
+  让session在销毁之前保存数据, 并且可以释放空间(服务器优化): session手动钝化
+
+
+Filter: 过滤器(过滤请求)
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-package utils;
+package mailutils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
