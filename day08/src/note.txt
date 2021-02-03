@@ -1,0 +1,37 @@
+Servlet的核心组件: Servlet Filter Listener
+
+过滤器: Filter
+生命周期:
+    init: Filter创建后初始化调用的, Filter是在服务器启动时创建
+    destroy: Filter在销毁之前调用的, Filter是在服务器关闭时销毁
+
+FilterConfig: 使用参考 ServletConfig(1.获得Servlet的名字 2.获得ServletContext 3.获得初始化参数)
+    1.获得Filter的名字
+    2.获得ServletContext对象
+    3.获得初始化参数
+
+过滤器链的顺序:
+  1.注解配置, 取决于过滤器的名字
+  2.xml配置, 取决于filter-mapping顺序
+
+放行: chain.doFilter(request, response)
+不放行: 直接使用转发\重定向
+
+过滤器用处: /*
+   1.权限判断(在进入[所有]资源[servlet/jsp/html]之前, 先判断权限问题)
+     比如: 增删改查之前先判断是否已经登录
+           1.未登录 -> 不放行, 跳转到登录页面(需要手动输入账号密码)
+           2.已登录 -> 放行
+             (在session中查看用户是否已登录)
+   2.自动登录(第一次登录时,选择自动登录[将账号密码保存在了cookie中], 下一次再访问该网站任意站点之前, 先登录)
+     比如: index.html list.html detail.html 访问之前, 先登录
+          1.已登录 -> 放行
+          2.未登录 -> 自动登录(不需要输入账号密码) -> 放行
+            (在session中查看用户是否已登录)
+   3.公共代码的提取
+     例如: 请求设置字符集, 乱码问题的解决
+
+
+单例模式
+装饰者模式
+
