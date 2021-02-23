@@ -56,8 +56,8 @@
     </div>
     <form action="${pageContext.request.contextPath}/DeleteSelectedServlet">
     <div style="float: right; margin-bottom: 10px">
-        <a class="btn btn-primary" href="add.html">添加联系人</a>
-        <input class="btn btn-primary" type="submit" value="删除选中">
+        <a class="btn btn-primary" href="add.jsp">添加联系人</a>
+        <button type="submit" class="btn btn-primary">删除选中</button>
     </div>
     <table border="1" class="table table-bordered table-hover">
         <tr class="success">

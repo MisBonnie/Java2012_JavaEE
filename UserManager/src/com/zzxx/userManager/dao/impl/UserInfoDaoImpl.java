@@ -89,4 +89,16 @@ public class UserInfoDaoImpl implements UserInfoDao {
         int count = jdbcTemplate.queryForObject(sql, Integer.class, paramList.toArray());
         return count;
     }
+
+    @Override
+    public void deleteById(int id) {
+        String sql = "delete from user_info where id = ?";
+        jdbcTemplate.update(sql, id);
+    }
+
+    @Override
+    public void add(UserInfo userInfo) {
+        String sql = "insert into user_info values(null, ?,?,?,?,?,?)";
+        jdbcTemplate.update(sql, userInfo.getName(), userInfo.getGender(), userInfo.getAge(), userInfo.getAddress(), userInfo.getQq(), userInfo.getEmail());
+    }
 }

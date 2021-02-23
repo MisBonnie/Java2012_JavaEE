@@ -39,4 +39,8 @@ public interface UserInfoDao {
      * @param condition
      */
     int findCount(Map<String, String[]> condition);
+
+    void deleteById(int id);
+
+    void add(UserInfo userInfo);
 }

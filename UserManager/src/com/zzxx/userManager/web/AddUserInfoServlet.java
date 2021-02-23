@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-@WebServlet("/UpdateUserInfoServlet")
-public class UpdateUserInfoServlet extends HttpServlet {
+@WebServlet("/AddUserInfoServlet")
+public class AddUserInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        // 1.接收请求参数, 封装对象
         UserInfo userInfo = new UserInfo();
         try {
             BeanUtils.populate(userInfo, request.getParameterMap());
@@ -25,9 +26,11 @@ public class UpdateUserInfoServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        UserInfoService userInfoService = new UserInfoServiceImpl();
-        userInfoService.updateUserInfo(userInfo);
-
+        // 2.调用service保存
+        UserInfoService us = new UserInfoServiceImpl();
+        us.addUserInfo(userInfo);
+        // 3.页面显示 -> list列表
+        // 重定向
         response.sendRedirect(request.getContextPath() + "/FindPageUserInfoServlet");
     }
 

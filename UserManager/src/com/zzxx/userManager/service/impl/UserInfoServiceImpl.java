@@ -41,4 +41,22 @@ public class UserInfoServiceImpl implements UserInfoService {
         pb.setTotalPage(totalPage);
         return pb;
     }
+
+    @Override
+    public void deleteUserInfoById(int id) {
+        userInfoDao.deleteById(id);
+    }
+
+    @Override
+    public void deleteUserInfos(String[] ids) {
+        for (String _id : ids) {
+            int id = Integer.parseInt(_id);
+            userInfoDao.deleteById(id);
+        }
+    }
+
+    @Override
+    public void addUserInfo(UserInfo userInfo) {
+        userInfoDao.add(userInfo);
+    }
 }

@@ -31,4 +31,10 @@ public interface UserInfoService {
      * @param condition
      */
     PageBean<UserInfo> findPageBean(int currentPage, int pageSize, Map<String, String[]> condition);
+
+    void deleteUserInfoById(int id);
+
+    void deleteUserInfos(String[] ids);
+
+    void addUserInfo(UserInfo userInfo);
 }

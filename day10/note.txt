@@ -1,0 +1,112 @@
+JavaEE
+1.Tomcat web应用服务器,软件
+  conf(修改端口..web.xml) bin(命令) webapps(应用) work(jsp相关文件)
+2.HTTP协议  请求+响应
+3.Servlet(接口): Server Applet  接收请求,并且返回响应
+    service
+  HttpServlet(doGet/doPost)
+4.请求: HttpServletRequest(请求行,请求头,请求体)
+  请求行: 请求方式 URI?get参数
+  请求头: map (user-agent, cookie, referer)
+  请求体: post请求方式的请求参数
+
+  setCharacterEncoding("UTF-8")   ISO8859-1
+
+  String getParameter(name)
+  String[] getParameterValues(name)
+  Map<String, String[]>getParameterMap() -> BeanUtils.populate(bean, map)
+
+  String getHeader(name)
+
+  请求转发: 一次请求, getRequestDispatcher("uri").forward(req, resp)
+  request域对象: setAttribute(name,value)
+                Object getAttribute(name)
+                removeAttribute(name)
+
+5.响应: HttpServletResponse(响应行,响应头,响应体)
+  响应行: 响应状态码  200 404 500 302 304 405
+  响应头: map(set-cookie)
+  响应体: 响应内容(setContentType("text/html;charset=utf-8   application/json  text/plain"))
+
+  getWriter() -> 写出内容
+  getOutputStream()->文件下载 setHeader("content-disposition")
+
+  重定向: 2次请求, sendRedirect("url")
+
+6.ServletContext - 服务器开启创建,服务器关闭销毁, 域对象
+  ServletConfig - servlet的配置相关
+
+7.会话技术
+  Cookie: 客户端保存   response.addCookie
+                      Cookie[] request.getCookies()
+                      setMaxAge() -> 默认会话结束就销毁
+                      setPath()
+  Session: 服务器端保存 JSESSIONID -> 保存在客户端cookie
+           HttpSession request.getSession()
+           域对象, 域的范围: 一次会话(可能包含多次请求)
+
+8.JSP: java server page -> 等同于servlet
+  servlet擅长处理java逻辑
+  jsp擅长处理html页面显示
+
+  <c:if>
+  <c:foreach>
+  <jsp:include>
+  ${el表达式} -> 最常见功能:从域中获取数据  pageContext.request.contextPath
+
+  查询数据: 请求 -> servlet -> 在servlet查询,将数据保存在request域,转发 -> jsp 通过el表达式和标签来显示
+
+9.JavaEE三层架构: web + service + dao层
+  MVC设计思想: 服务器端编程语言都会涉及到的
+
+10.AJAX -> 局部刷新, 发送异步请求
+   $.ajax({url:xx, async: true,
+           success:function(){}, data: {},
+           dataType:"json", method:"GET"})
+   $.get(url, 请求参数, function(){回调函数}, type)
+   $.post()
+
+11.Filter: 过滤器, 代码提取
+   Listener: 监听器  ServletContextListener
+
+
+
+Maven - 软件 Java Apache 管理java项目[管理jar包]
+   安装: bin[命令mvn] conf[配置文件] lib[类库]
+    apache-maven-3.6.1-bin.zip解压
+    配置环境变量
+   配置: settings.xml, 配置仓库地址
+    <localRepository>/Users/bonnie/.m2/repository</localRepository>
+   命令行: mvn -v
+
+依赖方式来引入jar包, 引入的是jar包的索引(仓库中的位置)
+
+本地仓库 -> 本地, 程序员自己电脑
+远程仓库 -> 私服, 公司内部搭建
+中央仓库 -> maven中央仓库网站
+
+maven生命周期
+ clean -> 清除 之前编译过的文件
+ compile -> 编译
+
+maven可以一键式启动应用, 不需要外部tomcat, 自带web插件
+ mvn tomcat:run      直接启动了maven中内置的tomcat插件,功能和外部tomcat软件一致
+ 注意: maven的tomcat插件最高可以使用版本7
+
+maven项目目录结构:
+  target -> 编译后的文件
+  pom.xml -> maven项目的核心配置文件(管理项目信息,版本,插件,依赖jar)
+  src -> 源码(java,html..)
+    main -> 主程序源码
+       java -> java源代码 .java文件
+       resources -> java程序相关的配置文件
+       webapp -> web资源, 等同于之前的web目录
+    test -> 测试用的源码
+       java -> java测试源代码, 单元测试
+       resources -> 测试用的配置文件, 可以不写
+
+模板:
+1.quickstart: 只包含 src/main/java 和 src/test/java
+              是一个普通的java工程, 可以打包成jar包
+2.webapp: 只包含 src/main/webapp 目录
+          是一个web工程, 可以打包成war包

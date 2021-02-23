@@ -41,7 +41,8 @@ public class FindPageUserInfoServlet extends HttpServlet {
         // 4.指派JSP页面显示
         request.setAttribute("pageBean", pb);
         request.setAttribute("condition", condition);// ${condition.name[0]} -> condition.get("name")[0]
-        request.getRequestDispatcher("/list.jsp").forward(request, response);
+        request.getRequestDispatcher("/list.jsp")
+                .forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
