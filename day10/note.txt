@@ -110,3 +110,8 @@ maven项目目录结构:
               是一个普通的java工程, 可以打包成jar包
 2.webapp: 只包含 src/main/webapp 目录
           是一个web工程, 可以打包成war包
+
+IDEA设置maven
+-DarchetypeCatalog=internal
+
+

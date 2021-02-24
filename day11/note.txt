@@ -1,0 +1,80 @@
+XML: 文本标记语言
+     作用: 记录数据, 配置文件
+          web.xml server.xml settings.xml c3p0-config.xml
+          框架相关配置文件
+html: 标签和属性是固定的
+      大小写不敏感的  <h1> <H1>
+      属性可以没有引号
+
+xml的书写,语法: 标签可以自定义, 大小写敏感, 属性必须套引号
+xml的解析,读取: Dom4j  Element Attribute Node
+xml的约束: 规定了xml文件的标签和属性以及对应的值
+          DTD约束: <!DOCTYPE 约束内容> 约束文件 .dtd
+          Schema约束: 约束文件 .xsd(格式和xml格式基本一致)
+                     也称命名空间约束
+类加载器:
+  问: 自己定义一个java.lang.String类, 能不能使用?
+      java.lang.String - JDK中的基础类
+      java.lang.String - 自定义类
+  加载自定义java.lang.String类, 首先会先经过引导类加载器,
+  看能否加载对应的类, 加载了JDK中的java.lang.String
+  然后继续由扩展类加载器和应用类加载器来加载, 发现该类已经被加载过了,
+  不会再次加载 -> 双亲委派模型, 可以保证JDK中的类不会被随意修改
+
+
+反射:
+  构造方法
+  方法
+  成员变量
+
+
+注解: Annotation
+  JDK1.5
+    @Override - 方法重写
+    @Deprecated - 过时的
+    @SuppressWarnings - 压制警告
+  注意: 1.注解的使用有位置限制 @Target
+       2.注解是可能有属性的, 可能会有多个属性, 属性还会有默认值
+
+    @WebServlet("/AnnotationServlet") √
+    @WebServlet(value="/AnnotationServlet") √
+    @SuppressWarnings(value="all") √
+    @SuppressWarnings(value={"all"}) √
+    @SuppressWarnings("all") √
+    @Deprecated(since="8") √
+    @Deprecated("8") ×
+    @WebServlet(value="/AnnotationServlet", loadOnStartup=5) √
+    @WebServlet("/AnnotationServlet", loadOnStartup=5) ×
+
+    当注解中只有一个属性需要赋值, 并且这个属性名是value的时候, value可以省略
+    当注解的属性值是数组类型, 但是赋值时只有一个值, 那么可以直接赋值, 不需要数组
+
+@FunctionalInterface: 接口中只有一个抽象方法
+
+元注解: 标注 注解的注解
+    @Target: 规范注解的使用位置
+    @Retention: 规范注解的可见范围
+
+代理模式: dao 和 service 都是接口
+  单例模式
+  装饰者模式: 增强某一个方法
+  工厂模式: 生产对象    Calender.getInstance()
+  代理模式: 动态代理  CGLib代理
+           目的: 为了增强方法 - 一次性增强所有方法
+
+  动态代理原理: 代理对象拥有和被代理对象相同的父接口, 所以service和dao层是面向接口开发的
+  CGLib代理: 代理对象继承被代理对象 - 不推荐使用(Hibernate框架)
+             被代理对象不能是final的
+
+
+web service dao
+
+事务: 业务层面上的最小单位
+
+
+
+
+
+
+
+

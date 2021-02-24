@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 上面这句是xml文件的声明, 必须放在文件第一行 -->
+<!-- xml只有一个根标签 -->
+<books class="Java2012">
+    <book price="59.9">
+        钢铁是怎样炼成的
+    </book>
+    <book name="哈利波特" count="7"/>
+</books>

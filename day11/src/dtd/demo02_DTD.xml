@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 该文件根标签只能是 note
+     note标签中的子标签是 (to,from,heading,body) - 按顺序写
+     to标签中的内容必须是普通文本
+     ...
+-->
+<!DOCTYPE note [
+        <!ELEMENT note (to,from,heading,body)>
+        <!ELEMENT to      (#PCDATA)>
+        <!ELEMENT from    (#PCDATA)>
+        <!ELEMENT heading (#PCDATA)>
+        <!ELEMENT body    (#PCDATA)>
+        ]>
+<note>
+    <to>杭州</to>
+    <from>背景</from>
+    <heading>长发</heading>
+    <body>蓝色衣服</body>
+</note>

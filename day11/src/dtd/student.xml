@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE students SYSTEM "/Users/bonnie/IdeaWorks/JavaEE/day11/src/dtd/student.dtd">
+<students>
+    <student number="ID19">
+        <name>张三</name>
+        <age>18</age>
+        <sex>男</sex>
+    </student>
+
+</students>
